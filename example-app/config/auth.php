@@ -61,14 +61,9 @@ return [
 
     'providers' => [
         'users' => [
-            'driver' => 'eloquent',
+            'driver' => 'q-symfony-skeleton-api',
             'model' => App\Models\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*
@@ -85,15 +80,6 @@ return [
     | they have less time to be guessed. You may change this as needed.
     |
     */
-
-    'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-    ],
 
     /*
     |--------------------------------------------------------------------------
