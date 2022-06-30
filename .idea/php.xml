@@ -111,6 +111,7 @@
       <path value="$PROJECT_DIR$/example-app/vendor/symfony/polyfill-php72" />
       <path value="$PROJECT_DIR$/example-app/vendor/symfony/polyfill-php80" />
       <path value="$PROJECT_DIR$/example-app/vendor/symfony/polyfill-php81" />
+      <path value="$PROJECT_DIR$/example-app/vendor/laravel/breeze" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />
