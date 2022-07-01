@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 
 final class QSymfonySkeletonApiHttpClient implements QSymfonySkeletonApiInterface
 {
-    private string $getTokenEndpoint = 'https://symfony-skeleton.q-tests.com/api/v2/token';
+    private string $tokenEndpointConfigKey = 'external.q-symfony-api.endpoints.token';
 
     public function validateCredentials(string $email, string $password): bool
     {
@@ -15,7 +15,7 @@ final class QSymfonySkeletonApiHttpClient implements QSymfonySkeletonApiInterfac
             'password' => $password
         ];
 
-        $response = Http::post($this->getTokenEndpoint, $requestBody);
+        $response = Http::post(config($this->tokenEndpointConfigKey), $requestBody);
         return $response->ok();
     }
 
@@ -26,7 +26,7 @@ final class QSymfonySkeletonApiHttpClient implements QSymfonySkeletonApiInterfac
             'password' => $password
         ];
 
-        $response = Http::post($this->getTokenEndpoint, $requestBody);
+        $response = Http::post(config($this->tokenEndpointConfigKey), $requestBody);
 
         if ($response->failed()) {
             return [];
