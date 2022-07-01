@@ -25,6 +25,7 @@ class QSymfonySkeletonUserProvider implements UserProvider
      */
     public function retrieveById($identifier)
     {
+        return new User(['id' => $identifier]);
     }
 
     /**
@@ -36,6 +37,7 @@ class QSymfonySkeletonUserProvider implements UserProvider
      */
     public function retrieveByToken($identifier, $token)
     {
+        return null;
     }
 
     /**
@@ -46,8 +48,7 @@ class QSymfonySkeletonUserProvider implements UserProvider
      * @return void
      */
     public function updateRememberToken(Authenticatable $user, $token)
-    {
-    }
+    {}
 
     /**
      * Retrieve a user by the given credentials.
@@ -64,6 +65,7 @@ class QSymfonySkeletonUserProvider implements UserProvider
         }
 
         return (new User())
+            ->setId($responseUser['user']['id'])
             ->setEmail($responseUser['user']['email'])
             ->setFirstName($responseUser['user']['first_name'])
             ->setLastName($responseUser['user']['last_name'])
@@ -79,6 +81,8 @@ class QSymfonySkeletonUserProvider implements UserProvider
      */
     public function validateCredentials(Authenticatable $user, array $credentials)
     {
+        // TODO Validate a user against the given credentials.
+//        $user->getAuthIdentifier()
         return $this->qSymfonySkeletonApi->validateCredentials($credentials['email'], $credentials['password']);
     }
 }

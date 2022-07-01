@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -32,10 +31,29 @@ class User extends Authenticatable
         'token'
     ];
 
+    private int $id;
     private string $email;
     private string $firstName;
     private string $lastName;
     private string $token;
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return User
+     */
+    public function setId(int $id): User
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     /**
      * @return string
@@ -107,5 +125,10 @@ class User extends Authenticatable
     {
         $this->token = $token;
         return $this;
+    }
+
+    public function getAuthIdentifier(): int
+    {
+        return $this->id;
     }
 }
