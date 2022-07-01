@@ -2,11 +2,11 @@
 
 namespace App\Providers;
 
-use App\Infrastructure\Http\QSymfonySkeletonApiHttpClient;
 use App\Infrastructure\Http\QSymfonySkeletonApiInterface;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Support\Facades\Cache;
 
 class QSymfonySkeletonUserProvider implements UserProvider
 {
@@ -25,7 +25,8 @@ class QSymfonySkeletonUserProvider implements UserProvider
      */
     public function retrieveById($identifier)
     {
-        return new User(['id' => $identifier]);
+        $user = Cache::get("user$identifier");
+        return $user;
     }
 
     /**
@@ -58,18 +59,23 @@ class QSymfonySkeletonUserProvider implements UserProvider
      */
     public function retrieveByCredentials(array $credentials)
     {
-        $responseUser = $this->qSymfonySkeletonApi->fetchUser($credentials['email'], $credentials['password']);
+        $responseUser = $this->qSymfonySkeletonApi->fetchUserByCredentials($credentials['email'], $credentials['password']);
 
         if (empty($responseUser)) {
             return null;
         }
 
-        return (new User())
-            ->setId($responseUser['user']['id'])
-            ->setEmail($responseUser['user']['email'])
-            ->setFirstName($responseUser['user']['first_name'])
-            ->setLastName($responseUser['user']['last_name'])
-            ->setToken($responseUser['token']);
+        $user = new User([
+            'id' => (int) $responseUser['user']['id'],
+            'email' => $responseUser['user']['email'],
+            'firstName' => $responseUser['user']['first_name'],
+            'lastName' => $responseUser['user']['last_name'],
+            'name' => $responseUser['user']['first_name'] . ' ' . $responseUser['user']['last_name'],
+            'token' => $responseUser['token'],
+        ]);
+
+        Cache::put("user$user->id", $user);
+        return $user;
     }
 
     /**

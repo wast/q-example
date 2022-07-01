@@ -17,9 +17,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
+        'firstName',
+        'lastName',
         'email',
-        'password',
+        'token',
     ];
 
     /**
@@ -31,10 +34,15 @@ class User extends Authenticatable
         'token'
     ];
 
-    private int $id;
+    protected $guarded = [
+        'token'
+    ];
+
+//    private int $id;
     private string $email;
     private string $firstName;
     private string $lastName;
+    private string $name;
     private string $token;
 
     /**
@@ -129,6 +137,6 @@ class User extends Authenticatable
 
     public function getAuthIdentifier(): int
     {
-        return $this->id;
+        return $this->getId();
     }
 }
