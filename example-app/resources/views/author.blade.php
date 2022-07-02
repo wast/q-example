@@ -9,7 +9,17 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    Id: {{ $author->id }}<br/>
+                    Id: {{ $author->id }}
+                    <form action="{{ route('delete-author', $author->id) }}" method="POST" class="delete-action">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit"
+                            @if(!empty($author->books))
+                                disabled
+                                title="Author has books and can't be deleted"
+                            @endif
+                        >[Delete author]</button>
+                    </form><br/>
                     First name: {{ $author->firstName }}<br/>
                     Last name: {{ $author->lastName }}<br/>
                     Birthday: {{ $author->birthday->format('Y-m-d') }}<br/>

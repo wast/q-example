@@ -61,6 +61,12 @@ final class QSymfonySkeletonApiHttpClient implements QSymfonySkeletonApiInterfac
         return $author;
     }
 
+    public function deleteAuthorById(int $authorId): void
+    {
+        $endpoint = config($this->authorsEndpointConfigKey) . "/$authorId";
+        Http::withToken($this->getToken())->delete($endpoint);
+    }
+
     private function getToken(): string
     {
         return Auth::user()->token;

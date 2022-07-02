@@ -24,10 +24,9 @@ Route::get('/', function () {
 //})->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])
-        ->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/author/{id}', [AuthorController::class, 'show'])->name('author');
-    Route::delete('/author/{id}', [AuthorController::class, 'destroy']);
+    Route::delete('/author/{id}', [AuthorController::class, 'destroy'])->name('delete-author');
 });
 
 require __DIR__.'/auth.php';

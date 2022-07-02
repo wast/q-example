@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Infrastructure\Http\QSymfonySkeletonApiInterface;
-use App\Models\Author;
-use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class AuthorController extends Controller
 {
@@ -31,14 +30,16 @@ class AuthorController extends Controller
         return view('author', [ 'author' => $author ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Author  $author
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Author $author)
+    public function destroy(int $authorId)
     {
-        //
+        $author = $this->qSymfonySkeletonApi->fetchAuthorById($authorId);
+
+        if (empty($author->books))
+        {
+            $this->qSymfonySkeletonApi->deleteAuthorById($authorId);
+            return response()->noContent();
+        }
+
+        return new BadRequestException("Author can't be deleted because it has related books");
     }
 }
