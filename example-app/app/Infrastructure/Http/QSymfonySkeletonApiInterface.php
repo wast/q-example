@@ -13,4 +13,6 @@ interface QSymfonySkeletonApiInterface
      * @return Author[]
      */
     public function fetchAuthors(): array;
+
+    public function fetchAuthorById(int $authorId): Author;
 }

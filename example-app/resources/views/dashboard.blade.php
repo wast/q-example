@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-{{--            {{ __('Dashboard') }}--}}
+            {{ __('Dashboard') }}
         </h2>
     </x-slot>
 
@@ -9,7 +9,6 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-{{--                    {! $authors !}--}}
                     <table>
                         <thead>
                         <tr>
@@ -24,7 +23,7 @@
                         <tbody>
                             @foreach($authors as $author)
                                 <tr>
-                                    <td>{{ $author->id }}</td>
+                                    <td><a href="{{ route('author', $author->id) }}">{{ $author->id }}</a></td>
                                     <td>{{ $author->firstName }}</td>
                                     <td>{{ $author->lastName }}</td>
                                     <td>{{ $author->birthday->format('Y-m-d') }}</td>

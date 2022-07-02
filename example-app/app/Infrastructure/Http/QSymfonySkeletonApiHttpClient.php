@@ -53,6 +53,14 @@ final class QSymfonySkeletonApiHttpClient implements QSymfonySkeletonApiInterfac
         return $authors;
     }
 
+    public function fetchAuthorById(int $authorId): Author
+    {
+        $endpoint = config($this->authorsEndpointConfigKey) . "/$authorId";
+        $response = Http::withToken($this->getToken())->get($endpoint);
+        $author = Author::fromJson($response->json());
+        return $author;
+    }
+
     private function getToken(): string
     {
         return Auth::user()->token;
