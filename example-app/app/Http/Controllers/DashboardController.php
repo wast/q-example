@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Infrastructure\Http\QSymfonySkeletonApiInterface;
 
 final class DashboardController extends Controller
 {
+    private QSymfonySkeletonApiInterface $qSymfonySkeletonApi;
+
+    public function __construct(QSymfonySkeletonApiInterface $qSymfonySkeletonApi)
+    {
+        $this->qSymfonySkeletonApi = $qSymfonySkeletonApi;
+    }
+
     /**
      * Display the Dashboard view.
      *
@@ -13,6 +20,9 @@ final class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $authors = $this->qSymfonySkeletonApi->fetchAuthors();
+        return view('dashboard',
+            [ 'authors' => $authors ]
+        );
     }
 }
