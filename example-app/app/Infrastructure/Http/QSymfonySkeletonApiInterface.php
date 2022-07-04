@@ -15,4 +15,6 @@ interface QSymfonySkeletonApiInterface
     public function fetchAuthors(): array;
     public function fetchAuthorById(int $authorId): Author;
     public function deleteAuthorById(int $authorId): void;
+
+    public function deleteBookById(int $bookId): void;
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Infrastructure\Http\QSymfonySkeletonApiInterface;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
-class AuthorController extends Controller
+final class AuthorController extends Controller
 {
     private QSymfonySkeletonApiInterface $qSymfonySkeletonApi;
 
@@ -37,7 +37,7 @@ class AuthorController extends Controller
         if (empty($author->books))
         {
             $this->qSymfonySkeletonApi->deleteAuthorById($authorId);
-            return response()->noContent();
+            return response()->redirectToRoute('dashboard');
         }
 
         return new BadRequestException("Author can't be deleted because it has related books");

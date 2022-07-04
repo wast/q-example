@@ -26,31 +26,43 @@
                     Gender: {{ $author->gender }}<br/>
                     Place of birth: {{ $author->placeOfBirth }}<br/>
                     Books:
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Title</th>
-                            <th>Release date</th>
-                            <th>Description</th>
-                            <th>ISBN</th>
-                            <th>No. of pages</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($author->books as $book)
-                                <tr>
-{{--                                    <td><a href="{{ route('author', $author->id) }}">{{ $author->id }}</a></td>--}}
-                                    <td>{{ $book->id }}</td>
-                                    <td>{{ $book->title }}</td>
-                                    <td>{{ $book->releaseDate->format('Y-m-d') }}</td>
-                                    <td>{{ $book->description }}</td>
-                                    <td>{{ $book->isbn }}</td>
-                                    <td>{{ $book->numberOfPages }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    @if(empty($author->books))
+                        None
+                    @else
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Title</th>
+                                <th>Release date</th>
+                                <th>Description</th>
+                                <th>ISBN</th>
+                                <th>No. of pages</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($author->books as $book)
+                                    <tr>
+    {{--                                    <td><a href="{{ route('author', $author->id) }}">{{ $author->id }}</a></td>--}}
+                                        <td>{{ $book->id }}</td>
+                                        <td>{{ $book->title }}</td>
+                                        <td>{{ $book->releaseDate->format('Y-m-d') }}</td>
+                                        <td>{{ $book->description }}</td>
+                                        <td>{{ $book->isbn }}</td>
+                                        <td>{{ $book->numberOfPages }}</td>
+                                        <td>
+                                            <form action="{{ route('delete-book', $book->id) }}" method="POST" class="delete-action">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit">[Delete book]</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
             </div>
         </div>

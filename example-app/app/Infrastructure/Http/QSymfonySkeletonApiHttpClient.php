@@ -3,7 +3,6 @@
 namespace App\Infrastructure\Http;
 
 use App\Models\Author;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
@@ -11,6 +10,7 @@ final class QSymfonySkeletonApiHttpClient implements QSymfonySkeletonApiInterfac
 {
     private string $tokenEndpointConfigKey = 'external.q-symfony-api.endpoints.token';
     private string $authorsEndpointConfigKey = 'external.q-symfony-api.endpoints.authors';
+    private string $booksEndpointConfigKey = 'external.q-symfony-api.endpoints.books';
 
     public function validateCredentials(string $email, string $password): bool
     {
@@ -64,6 +64,12 @@ final class QSymfonySkeletonApiHttpClient implements QSymfonySkeletonApiInterfac
     public function deleteAuthorById(int $authorId): void
     {
         $endpoint = config($this->authorsEndpointConfigKey) . "/$authorId";
+        Http::withToken($this->getToken())->delete($endpoint);
+    }
+
+    public function deleteBookById(int $bookId): void
+    {
+        $endpoint = config($this->booksEndpointConfigKey) . "/$bookId";
         Http::withToken($this->getToken())->delete($endpoint);
     }
 
