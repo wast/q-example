@@ -20,7 +20,9 @@ final class DashboardController extends Controller
      */
     public function index()
     {
+        // TODO to AuthorController
         $authors = $this->qSymfonySkeletonApi->fetchAuthors();
+        // TODO pagination
         return view('dashboard',
             [ 'authors' => $authors ]
         );

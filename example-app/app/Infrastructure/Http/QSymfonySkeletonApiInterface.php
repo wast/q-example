@@ -17,4 +17,6 @@ interface QSymfonySkeletonApiInterface
     public function deleteAuthorById(int $authorId): void;
 
     public function deleteBookById(int $bookId): void;
+
+    public function createBook(array $createBookRequest): void;
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBookRequest;
 use App\Infrastructure\Http\QSymfonySkeletonApiInterface;
 use App\Models\Book;
 use Illuminate\Http\Request;
@@ -22,18 +23,17 @@ final class BookController extends Controller
      */
     public function create()
     {
-        // TODO
+        return response()->view('book-create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(StoreBookRequest $storeBookRequest)
     {
-        // TODO
+        $this->qSymfonySkeletonApi->createBook($storeBookRequest->all());
+        return response()->redirectToRoute('author',
+            [
+                'id' => $storeBookRequest->input('authorId')
+            ]
+        );
     }
 
     /**

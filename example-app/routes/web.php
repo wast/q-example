@@ -26,8 +26,12 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::get('/author/{id}', [AuthorController::class, 'show'])->name('author');
     Route::delete('/author/{id}', [AuthorController::class, 'destroy'])->name('delete-author');
+
+    Route::get('/book/create', [BookController::class, 'create'])->name('book-create');
+    Route::post('/book', [BookController::class, 'store'])->name('create-book-action');
     Route::delete('/book/{id}', [BookController::class, 'destroy'])->name('delete-book');
 });
 

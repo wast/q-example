@@ -16,6 +16,12 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('book-create')" :active="request()->routeIs('book-create')">
+                        Create book
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->

@@ -73,6 +73,23 @@ final class QSymfonySkeletonApiHttpClient implements QSymfonySkeletonApiInterfac
         Http::withToken($this->getToken())->delete($endpoint);
     }
 
+    public function createBook(array $createBookRequest): void
+    {
+        $endpoint = config($this->booksEndpointConfigKey);
+        $data = [
+            'author' => [
+                'id' => (int) $createBookRequest['authorId'],
+            ],
+            'title' => $createBookRequest['title'],
+            'release_date' => $createBookRequest['releaseDate'],
+            'description' => $createBookRequest['description'],
+            'isbn' => $createBookRequest['isbn'],
+            'format' => $createBookRequest['bookFormat'],
+            'number_of_pages' => (int) $createBookRequest['numberOfPages'],
+        ];
+        Http::withToken($this->getToken())->post($endpoint, $data);
+    }
+
     private function getToken(): string
     {
         return Auth::user()->token;

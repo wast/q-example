@@ -37,6 +37,7 @@
                                 <th>Release date</th>
                                 <th>Description</th>
                                 <th>ISBN</th>
+                                <th>Format</th>
                                 <th>No. of pages</th>
                                 <th>Action</th>
                             </tr>
@@ -44,12 +45,12 @@
                             <tbody>
                                 @foreach($author->books as $book)
                                     <tr>
-    {{--                                    <td><a href="{{ route('author', $author->id) }}">{{ $author->id }}</a></td>--}}
                                         <td>{{ $book->id }}</td>
                                         <td>{{ $book->title }}</td>
                                         <td>{{ $book->releaseDate->format('Y-m-d') }}</td>
                                         <td>{{ $book->description }}</td>
                                         <td>{{ $book->isbn }}</td>
+                                        <td>{{ $book->format }}</td>
                                         <td>{{ $book->numberOfPages }}</td>
                                         <td>
                                             <form action="{{ route('delete-book', $book->id) }}" method="POST" class="delete-action">
