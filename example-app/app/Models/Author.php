@@ -40,6 +40,11 @@ final class Author
         $this->books = $books;
     }
 
+    function getFullName(): string
+    {
+        return "$this->firstName $this->lastName";
+    }
+
     /**
      * @param array $authorsArray
      * @return Author[]

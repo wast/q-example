@@ -23,7 +23,8 @@ final class BookController extends Controller
      */
     public function create()
     {
-        return response()->view('book-create');
+        $authors = $this->qSymfonySkeletonApi->fetchAuthors();
+        return response()->view('book-create', [ 'authors' => $authors ]);
     }
 
     public function store(StoreBookRequest $storeBookRequest)

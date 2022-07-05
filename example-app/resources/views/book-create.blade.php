@@ -36,10 +36,15 @@
                             <input type="number" name="numberOfPages" required>
                         </div>
                         <div>
-                            <label>Author Id</label><br/>
-                            <input type="number" name="authorId" required>
+                            <label>Author</label><br/>
+                            <select name="authorId">
+                                @foreach($authors as $author)
+                                    <option value="{{ $author->id }}">
+                                        {{ $author->getFullName() }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
-
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

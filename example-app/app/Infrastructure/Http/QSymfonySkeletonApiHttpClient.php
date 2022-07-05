@@ -47,7 +47,7 @@ final class QSymfonySkeletonApiHttpClient implements QSymfonySkeletonApiInterfac
      */
     public function fetchAuthors(): array
     {
-        $endpoint = config($this->authorsEndpointConfigKey);
+        $endpoint = config($this->authorsEndpointConfigKey) . '?limit=1000'; // TODO pagination
         $response = Http::withToken($this->getToken())->get($endpoint);
         $authors = Author::hydrate($response->json('items'));
         return $authors;
